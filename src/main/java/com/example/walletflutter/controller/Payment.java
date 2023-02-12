@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/vi/payment")
+@RequestMapping("api/v1/payment")
 @AllArgsConstructor
 public class Payment {
 
+    private final AppUtil appUtil;
     private final PaymentServices paymentService;
     @PostMapping("/get-payment-link")
     public ResponseEntity<ApiResponse> getPaymentLink(@RequestBody  CustomerRequest customerRequest) {
@@ -27,15 +28,16 @@ public class Payment {
                 .currency("NGN")
                 .customer(customerRequest)
                 .tx_ref(appUtil.generateSerialNumber("TX_REF_"))
-                .redirect_url("https://decagonhq.com/")
+                .redirect_url("http://localhost/api/v1/payment/payment-callback/")
                 .build();
 
         return ResponseEntity.ok(paymentService.getPaymentLink(paymentDetails));
     }
 
     @GetMapping("/payment-callback/")
-    public ApiResponse<VerifyTransaction> afterPaymentRedirect(@RequestParam(name = "transaction_id") String transaction_id) {
-
-        return paymentService.verifyPayment(transaction_id);
+    public ApiResponse<VerifyTransaction> afterPaymentRedirect(@RequestParam Map<String, String> redirectParams) {
+        System.out.println(redirectParams);
+        appUtil.log("Payment callback activated");
+        return paymentService.verifyPayment(redirectParams.get("transaction_id"));
     }
 }

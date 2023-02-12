@@ -1,7 +1,7 @@
 package com.example.walletflutter.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 public class CustomerRequest {
 
-    @NotNull(message = "Email must be provide")
+    @NotNull(message = "Email is required")
     private String email;
     @NotNull(message = "Amount is required")
     private BigDecimal amount;
