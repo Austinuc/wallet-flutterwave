@@ -25,7 +25,7 @@ public class PaymentServiceImpl implements PaymentServices {
     private final TransactionRepository transactionRepository;
 
     @Value("${app.FLW_SECRET_KEY}")
-    private final String FLW_SECRET_KEY;
+    private String FLW_SECRET_KEY;
     @Override
     public ApiResponse getPaymentLink(PaymentDetails paymentDetails) {
         String url = "https://api.flutterwave.com/v3/payments";

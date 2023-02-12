@@ -1,12 +1,11 @@
 package com.example.walletflutter.dtos.response;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class ApiResponse<T> {
 
     private String status;
